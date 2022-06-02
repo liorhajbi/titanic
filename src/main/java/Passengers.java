@@ -88,12 +88,15 @@ public class Passengers {
         return passengerId;
     }
 
-    public void setPassengerId(String passenerId) {
-        this.passengerId = passenerId;
+    public void setPassengerId(String passengerId) {
+        this.passengerId = passengerId;
     }
 
-    public boolean isSurvived() {
+    public boolean Survived() {
         return survived;
+    }
+    public boolean notSurvived() {
+        return !survived;
     }
 
     public void setSurvived(boolean survived) {
@@ -223,20 +226,13 @@ public class Passengers {
                 ", fare='" + fare + '\'' +
                 ", cabin='" + cabin + '\'' +
                 ", embarked='" + embarked + '\'' +
-                '}';
+                '}' + "\n";
     }
 
     public String getFormattedName(String lineData){
-         String [] dataItem = lineData.split("  ");
-         for (int i=0; i< dataItem.length; i++) {
-             String [] dataItemSplit= dataItem[i].split(" Mrs. ");
-          //   System.out.println(dataItemSplit[i]+i );
-         }
-      //   System.out.println(dataItem[0]);
+         String name = "";
+         String [] split = lineData.split(" ");
+
          return lineData;
-
-
-
-
      }
 }

@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,6 +31,7 @@ public class MainPanel extends JPanel {
     private JLabel sex;
     private JLabel parchLabel;
     private JLabel embarked;
+    private JLabel summary;
 
 
     private JButton submit;
@@ -120,31 +124,51 @@ public class MainPanel extends JPanel {
         this.sexSurvived = new JComboBox<>(Constants.PASSENGER_SEX_OPTIONS);
         this.sexSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
         add(sexSurvived);
+        this.summary = new JLabel(" ");
+        this.summary.setBounds(80,450,500,40);
+        this.summary.setFont(new Font("TimesRoman", Font.BOLD, 20));
+
+        add(summary);
 
 
         this.submit.addActionListener( (e) -> {
 
-           // this.survivedComboBox.addActionListener((e1) -> {
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
 //          passengersList = mainSortByClass(chooseOfUser,passengersList);
-//          passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+//        //  passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
 //          String sexOfChoose = (String)(sexSurvived.getSelectedItem());
-//          passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
-//          passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+          passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
+//         // passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
 //          passengersList = sortByName(passengersList,subStringName.getText());
-            passengersList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
+//          passengersList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
 //          passengersList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
 //          passengersList = sortByTicket(passengersList, Integer.parseInt(ticket.getText()));
 //          passengersList = sortByCabin(passengersList, cabin.getText());
 //          passengersList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
-            System.out.println(passengersList);
+          System.out.println(passengersList);
 
-
-
+            summary.setText("Total Rows: "+ passengersList.size() +  "("+howManySurvived(passengersList)+ " survived" +", " +howManyNotSurvived(passengersList)  + " did not)");
+            try {
+                writeToFile(passengersList);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
         });
 
 
+    }
+    public static void writeToFile ( List<Passengers> passengers) throws IOException {
+        FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\1cvs.csv");
+        fileWriter.write(String.valueOf(passengers));
+        fileWriter.close();
+    }
+
+    public static int howManySurvived (List<Passengers>passengers){
+        return (int) passengers.stream().filter(Passengers::Survived).count();
+    }
+    public static int howManyNotSurvived (List<Passengers>passengers){
+        return (int) passengers.stream().filter(Passengers::notSurvived).count();
     }
     public static List<Passengers> mainSortBySibSp (List <Passengers> passengers,int number){
         if (number == -1){
