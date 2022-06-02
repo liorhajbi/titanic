@@ -15,36 +15,66 @@ public class Passengers {
     private String cabin;
     private String embarked;
 
+    public boolean embarked (String embarked){
+        if (this.embarked != null){
+            return this.embarked.equals(embarked);
+        }
+        return false;
+    }
+
     public boolean stringContained ( String nameOfUser){
         if (!this.name.contains(nameOfUser)){
             return false;
         }
         return true;
     }
-    public boolean amountOfBrothers (int number){
+    public boolean cabin ( String number){
+        if (this.cabin== "" || this.cabin ==null){
+            return false;
+        }
+        if (!this.cabin.contains(number)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean ticket ( int number){
+        if (!this.ticket.contains(String.valueOf(number))){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean parch(int number){
+        return (this.parch == number);
+    }
+
+    public boolean sibSp(int number){
         return (this.sibSp == number);
     }
 
 
 
     public boolean rangeOfId (String minNumber,String maxNumber) {
-        try {
             System.out.println(minNumber + " min");
-            if (minNumber == null) {
+            try {
+            if (minNumber == "" || minNumber == "0") {
                 System.out.println("הגעתי");
                 return (Integer.parseInt(this.passengerId)) <= Integer.parseInt(maxNumber);
             }
-            if (maxNumber == null) {
+            if (maxNumber == ""|| maxNumber == "0") {
                 return (Integer.parseInt(this.passengerId)) > (Integer.parseInt(minNumber));
             }
             else {
                 System.out.println("לפה");
                 return (Integer.parseInt(this.passengerId)) >= Integer.parseInt(minNumber) && (Integer.parseInt(this.passengerId)) <= Integer.parseInt(maxNumber);
             }
-        }catch (Exception e) {
+            } catch (NumberFormatException e){
+                minNumber ="0";
+                rangeOfId(minNumber,maxNumber);
+                System.out.println(e.getMessage());
+            }
             return false;
-        }
-
     }
 
     public boolean typeOfClass (int number){
@@ -162,7 +192,11 @@ public class Passengers {
             this.pClass = Integer.valueOf(dataItem[2]);
             this.name = getFormattedName(dataItem[3] + dataItem[4]);
             this.sex = dataItem[5];
-            this.age = Integer.valueOf(dataItem[6]);
+            try {
+                this.age = Integer.valueOf(dataItem[6]);
+            } catch (Exception e){
+                this.age = (Integer.valueOf("0")) ;
+            }
             this.sibSp = Integer.valueOf(dataItem[7]);
             this.parch = Integer.valueOf(dataItem[8]);
             this.ticket = dataItem[9];

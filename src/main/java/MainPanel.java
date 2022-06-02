@@ -10,15 +10,24 @@ import java.util.stream.Collectors;
 public class MainPanel extends JPanel {
     private JComboBox<String> survivedComboBox;
     private JComboBox<String> sexSurvived;
+    private JComboBox<String> embarkedSurvived;
+
 
     private List <Passengers> passengersList;
     private JTextField minRange;
     private JTextField maxRange;
     private JTextField subStringName;
-    private JTextField amountOfBrothers;
-    private JLabel amountOfB;
+    private JTextField sibSp;
+    private JTextField parch;
+    private JTextField ticket;
+    private JTextField cabin;
+    private JLabel cabinLabel;
+    private JLabel ticketLabel;
+    private JLabel sibSpLabel;
     private JLabel subStringOfName;
     private JLabel sex;
+    private JLabel parchLabel;
+    private JLabel embarked;
 
 
     private JButton submit;
@@ -56,15 +65,33 @@ public class MainPanel extends JPanel {
         this.subStringName = new JTextField();
         this.subStringName.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(subStringName);
-        this.subStringOfName = new JLabel("substring of name");
+        this.subStringOfName = new JLabel("name");
         this.subStringOfName.setBounds(survivedLabel.getX(),survivedLabel.getY()+140,120,40);
         add(subStringOfName);
-        this.amountOfBrothers = new JTextField();
-        this.amountOfBrothers.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
-        add(amountOfBrothers);
-        this.amountOfB= new JLabel("amount of brothers");
-        this.amountOfB.setBounds(survivedLabel.getX(),survivedLabel.getY()+200,120,40);
-        add(amountOfB);
+        this.sibSp = new JTextField();
+        this.sibSp.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(sibSp);
+        this.sibSpLabel = new JLabel("sib sp");
+        this.sibSpLabel.setBounds(survivedLabel.getX(),survivedLabel.getY()+200,120,40);
+        add(sibSpLabel);
+        this.parch = new JTextField();
+        this.parch.setBounds(survivedLabel.getX()+300,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(parch);
+        this.parchLabel = new JLabel("parch");
+        this.parchLabel.setBounds(survivedLabel.getX()+ 190,survivedLabel.getY()+140,120,40);
+        add(parchLabel);
+        this.ticket = new JTextField();
+        this.ticket.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(ticket);
+        this.ticketLabel = new JLabel("ticket");
+        this.ticketLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+200,120,40);
+        add(ticketLabel);
+        this.cabin = new JTextField();
+        this.cabin.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(cabin);
+        this.cabinLabel = new JLabel("cabin");
+        this.cabinLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+260,120,40);
+        add(cabinLabel);
         this.maxRange = new JTextField();
         this.maxRange.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(maxRange);
@@ -78,6 +105,12 @@ public class MainPanel extends JPanel {
         this.submit = new JButton("submit");
         this.submit.setBounds(150,400,100,40);
         add(submit);
+        this.embarkedSurvived = new JComboBox<>(Constants.PASSENGER_EMBARKED_OPTIONS);
+        this.embarkedSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+300,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        this.add(embarkedSurvived);
+        this.embarked = new JLabel("embarked");
+        this.embarked.setBounds(survivedLabel.getX()+survivedLabel.getWidth()-80,survivedLabel.getY()+300,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        add(embarked);
         this.survivedComboBox = new JComboBox<>(Constants.PASSENGER_CLASS_OPTIONS);
         this.survivedComboBox.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 1, survivedLabel.getY(), Constants.COMBO_BOX_WIDTH, Constants.COMBO_BOX_HEIGHT);
         this.add(this.survivedComboBox);
@@ -93,13 +126,17 @@ public class MainPanel extends JPanel {
 
            // this.survivedComboBox.addActionListener((e1) -> {
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
-          passengersList = mainSortByClass(chooseOfUser,passengersList);
-           // passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
-            String sexOfChoose = (String)(sexSurvived.getSelectedItem());
-            passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
-           // passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
-            passengersList = sortByName(passengersList,subStringName.getText());
-            passengersList =sortByAmountBrothers(passengersList, Integer.parseInt(amountOfBrothers.getText()));
+//          passengersList = mainSortByClass(chooseOfUser,passengersList);
+//          passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+//          String sexOfChoose = (String)(sexSurvived.getSelectedItem());
+//          passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
+//          passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+//          passengersList = sortByName(passengersList,subStringName.getText());
+            passengersList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
+//          passengersList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
+//          passengersList = sortByTicket(passengersList, Integer.parseInt(ticket.getText()));
+//          passengersList = sortByCabin(passengersList, cabin.getText());
+//          passengersList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
             System.out.println(passengersList);
 
 
@@ -109,25 +146,57 @@ public class MainPanel extends JPanel {
 
 
     }
+    public static List<Passengers> mainSortBySibSp (List <Passengers> passengers,int number){
+        if (number == -1){
+            return passengers;
+        }
+       return sortBySibSp(passengers,number);
+    }
 
 
 
     public static List<Passengers> mainSortById (String min, String max,List<Passengers>passengers){
         List<Passengers> passengersList = passengers;
-
         if (min != null && max.isEmpty()){
-            passengersList =sortById(passengers,min, null);
+            passengersList =sortById(passengers,min, max);
         }
         if (min.isEmpty() && max !=null){
-             passengersList=sortById(passengers, null,max);
+             passengersList=sortById(passengers, min,max);
         }
         if (min != null && max !=null){
           passengersList =sortById(passengers,min,max);
         }
         return passengersList;
     }
-    public static List<Passengers> sortByAmountBrothers (List<Passengers> passengers,int amount){
-        return passengers.stream().filter(passenger -> passenger.amountOfBrothers(amount)).collect(Collectors.toList());
+
+    public  static List<Passengers> mainSortByEmbarked (List<Passengers>passengers, String embarked){
+        if (embarked == "All"){
+            return passengers;
+        }
+          List<Passengers> passengersList = sortByEmbarked(passengers,embarked);
+        return passengersList;
+    }
+
+    public static List<Passengers> sortByEmbarked (List<Passengers> passengers, String embarked){
+        return passengers.stream().filter(passenger -> passenger.embarked(embarked)).collect(Collectors.toList());
+
+    }
+
+    public static List<Passengers> sortByCabin (List<Passengers> passengers, String number){
+        return passengers.stream().filter(passenger -> passenger.cabin(number)).collect(Collectors.toList());
+
+    }
+    public static List<Passengers> sortByTicket (List<Passengers> passengers, int number){
+        return passengers.stream().filter(passenger -> passenger.ticket(number)).collect(Collectors.toList());
+
+    }
+
+    public static List<Passengers> sortByParch (List<Passengers> passengers, int amount){
+        return passengers.stream().filter(passenger -> passenger.parch(amount)).collect(Collectors.toList());
+
+    }
+    public static List<Passengers> sortBySibSp(List<Passengers> passengers, int amount){
+        return passengers.stream().filter(passenger -> passenger.sibSp(amount)).collect(Collectors.toList());
 
     }
 
