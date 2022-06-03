@@ -58,15 +58,15 @@ public class Passengers {
     public boolean rangeOfId (String minNumber,String maxNumber) {
             System.out.println(minNumber + " min");
             try {
-            if (minNumber == "" || minNumber == "0") {
-                System.out.println("הגעתי");
+            if (Objects.equals(minNumber, "") || Objects.equals(minNumber, "0")) {
+                //  System.out.println("הגעתי");
                 return (Integer.parseInt(this.passengerId)) <= Integer.parseInt(maxNumber);
             }
-            if (maxNumber == ""|| maxNumber == "0") {
+            if (Objects.equals(maxNumber, "") || Objects.equals(maxNumber, "0")) {
                 return (Integer.parseInt(this.passengerId)) > (Integer.parseInt(minNumber));
             }
             else {
-                System.out.println("לפה");
+              //  System.out.println("לפה");
                 return (Integer.parseInt(this.passengerId)) >= Integer.parseInt(minNumber) && (Integer.parseInt(this.passengerId)) <= Integer.parseInt(maxNumber);
             }
             } catch (NumberFormatException e){
@@ -193,7 +193,7 @@ public class Passengers {
                 this.survived = true;
             }
             this.pClass = Integer.valueOf(dataItem[2]);
-            this.name = getFormattedName(dataItem[3] + dataItem[4]);
+            this.name = getFormattedName(dataItem[3] + ","+ dataItem[4]);
             this.sex = dataItem[5];
             try {
                 this.age = Integer.valueOf(dataItem[6]);
@@ -231,8 +231,11 @@ public class Passengers {
 
     public String getFormattedName(String lineData){
          String name = "";
-         String [] split = lineData.split(" ");
-
-         return lineData;
+         lineData = lineData.substring(1,lineData.length()-1);
+         String [] split = lineData.split(",");
+         String lastName = split[0];
+         String firstName = split[1].substring(split[1].indexOf("."));
+         firstName = firstName.substring(2);
+         return firstName+" "+lastName;
      }
 }

@@ -138,11 +138,11 @@ public class MainPanel extends JPanel {
 //        //  passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
 //          String sexOfChoose = (String)(sexSurvived.getSelectedItem());
           passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
-//         // passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+            //     passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
 //          passengersList = sortByName(passengersList,subStringName.getText());
 //          passengersList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
 //          passengersList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
-//          passengersList = sortByTicket(passengersList, Integer.parseInt(ticket.getText()));
+          passengersList = sortByTicket(passengersList, Integer.parseInt(ticket.getText()));
 //          passengersList = sortByCabin(passengersList, cabin.getText());
 //          passengersList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
           System.out.println(passengersList);
