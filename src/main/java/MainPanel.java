@@ -32,6 +32,7 @@ public class MainPanel extends JPanel {
     private JLabel parchLabel;
     private JLabel embarked;
     private JLabel summary;
+    private int number = 1;
 
 
     private JButton submit;
@@ -127,8 +128,8 @@ public class MainPanel extends JPanel {
         this.summary = new JLabel(" ");
         this.summary.setBounds(80,450,500,40);
         this.summary.setFont(new Font("TimesRoman", Font.BOLD, 20));
-
         add(summary);
+
 
 
         this.submit.addActionListener( (e) -> {
@@ -149,7 +150,8 @@ public class MainPanel extends JPanel {
 
             summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
             try {
-                writeToFile(newList);
+                writeToFile(newList,number);
+                number++;
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -158,10 +160,10 @@ public class MainPanel extends JPanel {
 
 
     }
-    public static void writeToFile ( List<Passengers> passengers) throws IOException {
-      //  FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\1cvs.csv");
-     //   fileWriter.write(String.valueOf(passengers));
-      //  fileWriter.close();
+    public static void writeToFile ( List<Passengers> passengers, int number) throws IOException {
+        FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\" + "csv."+number+".csv");
+        fileWriter.write(String.valueOf(passengers));
+        fileWriter.close();
     }
 
     public static int howManySurvived (List<Passengers>passengers){
