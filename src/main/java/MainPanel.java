@@ -14,11 +14,12 @@ public class MainPanel extends JPanel {
     private JComboBox<String> survivedComboBox;
     private JComboBox<String> sexSurvived;
     private JComboBox<String> embarkedSurvived;
+    private ImageIcon titanic;
 
 
     private List <Passengers> passengersList;
-    private JTextField minRange;
-    private JTextField maxRange;
+    private JTextField minId;
+    private JTextField maxId;
     private JTextField minFare;
     private JTextField maxFare;
     private JLabel minFareLabel;
@@ -36,6 +37,8 @@ public class MainPanel extends JPanel {
     private JLabel parchLabel;
     private JLabel embarked;
     private JLabel summary;
+    private JLabel fare;
+    private JLabel id;
     private int number = 1;
 
 
@@ -57,6 +60,8 @@ public class MainPanel extends JPanel {
                 }
                 i++;
             }
+            //      this.titanic = new ImageIcon("titanic.jpg");
+
 
         } catch (FileNotFoundException e){
             e.printStackTrace();
@@ -67,7 +72,7 @@ public class MainPanel extends JPanel {
         JLabel survivedLabel = new JLabel("Passenger Class: ");
         survivedLabel.setBounds(x + Constants.MARGIN_FROM_LEFT, y, Constants.LABEL_WIDTH, Constants.LABEL_HEIGHT);
         this.add(survivedLabel);
-        JLabel minRangeLabel = new JLabel("min: ");
+        JLabel minRangeLabel = new JLabel("max: ");
         minRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         minRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+70 , survivedLabel.getY()+40, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         this.add(minRangeLabel);
@@ -101,16 +106,19 @@ public class MainPanel extends JPanel {
         this.cabinLabel = new JLabel("cabin");
         this.cabinLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+260,120,40);
         add(cabinLabel);
-        this.maxRange = new JTextField();
-        this.maxRange.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
-        add(maxRange);
-        JLabel maxiRangeLabel = new JLabel("max: ");
-        maxiRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        maxiRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+40, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
-        this.add(maxiRangeLabel);
-        this.minRange = new JTextField();
-        this.minRange.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
-        add(minRange);
+        this.minId = new JTextField();
+        this.minId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(minId);
+        JLabel maxIdRangeLabel = new JLabel("min: ");
+        maxIdRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        maxIdRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+40, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.add(maxIdRangeLabel);
+        this.maxId = new JTextField();
+        this.maxId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(maxId);
+        this.id = new JLabel("id:");
+        this.id.setBounds(survivedLabel.getX()+10,survivedLabel.getY()+90,120,40);
+        add(id);
         this.minFareLabel = new JLabel("min:");
         this.minFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+10 , survivedLabel.getY()+330, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
      add(minFareLabel);
@@ -123,6 +131,9 @@ public class MainPanel extends JPanel {
         this.minFare = new JTextField();
         this.minFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(minFare);
+        this.fare = new JLabel( "fare:");
+        this.fare.setBounds(70  , survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(fare);
         this.submit = new JButton("submit");
         this.submit.setBounds(150,500,100,40);
         add(submit);
@@ -153,7 +164,7 @@ public class MainPanel extends JPanel {
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
             newList = mainSortByClass(chooseOfUser,passengersList);
             newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
-            newList=mainSortById(newList,minRange.getText(),maxRange.getText());
+            newList=mainSortById(newList, minId.getText(), maxId.getText());
             newList = sortByName(newList,subStringName.getText());
             try {
                 newList = sortBySibSp(newList, Integer.parseInt(sibSp.getText()));
@@ -306,6 +317,12 @@ public class MainPanel extends JPanel {
 
     public static List<Passengers> sortBySex(List <Passengers> passengers, String sex){
         return passengers.stream().filter(passenger -> passenger.typeOfSex(sex)).collect(Collectors.toList());
+    }
+    protected void paintComponent (Graphics g){
+        super.paintComponent(g);
+        if (this.titanic != null) {
+            g.drawImage(this.titanic.getImage(), 0, 0, 700, 600, null);
+        }
     }
 
 
