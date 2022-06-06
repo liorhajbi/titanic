@@ -19,6 +19,10 @@ public class MainPanel extends JPanel {
     private List <Passengers> passengersList;
     private JTextField minRange;
     private JTextField maxRange;
+    private JTextField minFare;
+    private JTextField maxFare;
+    private JLabel minFareLabel;
+    private JLabel maxFareLabel;
     private JTextField subStringName;
     private JTextField sibSp;
     private JTextField parch;
@@ -107,8 +111,20 @@ public class MainPanel extends JPanel {
         this.minRange = new JTextField();
         this.minRange.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(minRange);
+        this.minFareLabel = new JLabel("min:");
+        this.minFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+10 , survivedLabel.getY()+330, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+     add(minFareLabel);
+        this.maxFareLabel = new JLabel("max:");
+        this.maxFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+330, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(maxFareLabel);
+        this.maxFare = new JTextField();
+        this.maxFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(maxFare);
+        this.minFare = new JTextField();
+        this.minFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        add(minFare);
         this.submit = new JButton("submit");
-        this.submit.setBounds(150,400,100,40);
+        this.submit.setBounds(150,500,100,40);
         add(submit);
         this.embarkedSurvived = new JComboBox<>(Constants.PASSENGER_EMBARKED_OPTIONS);
         this.embarkedSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+300,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
@@ -135,17 +151,17 @@ public class MainPanel extends JPanel {
         this.submit.addActionListener( (e) -> {
             List <Passengers> newList = passengersList;
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
-//          newList = mainSortByClass(chooseOfUser,passengersList);
-//          newList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
-//          String sexOfChoose = (String)(sexSurvived.getSelectedItem());
-            newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
-            //     newList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
-//          newList = sortByName(passengersList,subStringName.getText());
-//          newList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
-//          newList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
-            newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
-//          newList = sortByCabin(passengersList, cabin.getText());
-//          newList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
+  //        newList = mainSortByClass(chooseOfUser,passengersList);
+    //      newList=mainSortById(minRange.getText(),maxRange.getText(),newList);
+      //      newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
+        //    newList=sortById(newList,minRange.getText(),maxRange.getText());
+    //      newList = sortByName(newList,subStringName.getText());
+   //       newList = mainSortBySibSp(newList, Integer.parseInt(sibSp.getText()));
+     //     newList = sortByParch(newList, Integer.parseInt(parch.getText()));
+       //     newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
+   //       newList = sortByCabin(newList, cabin.getText());
+     //     newList = mainSortByEmbarked(newList,(String) embarkedSurvived.getSelectedItem());
+          newList = sortByFare(newList,minFare.getText(),maxFare.getText());
           System.out.println(newList);
 
             summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
@@ -159,6 +175,9 @@ public class MainPanel extends JPanel {
         });
 
 
+    }
+    public static List<Passengers> sortByFare (List<Passengers> passengers,String minNumber,String maxNumber){
+        return passengers.stream().filter(passenger -> passenger.rangeOfFare(minNumber,maxNumber)).collect(Collectors.toList());
     }
     public static void writeToFile ( List<Passengers> passengers, int number) throws IOException {
         FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\" + "csv."+number+".csv");
@@ -180,20 +199,6 @@ public class MainPanel extends JPanel {
     }
 
 
-
-    public static List<Passengers> mainSortById (String min, String max,List<Passengers>passengers){
-        List<Passengers> passengersList = passengers;
-        if (min != null && max.isEmpty()){
-            passengersList =sortById(passengers,min, max);
-        }
-        if (min.isEmpty() && max !=null){
-             passengersList=sortById(passengers, min,max);
-        }
-        if (min != null && max !=null){
-          passengersList =sortById(passengers,min,max);
-        }
-        return passengersList;
-    }
 
     public  static List<Passengers> mainSortByEmbarked (List<Passengers>passengers, String embarked){
         if (embarked == "All"){

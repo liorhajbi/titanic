@@ -54,9 +54,28 @@ public class Passengers {
     }
 
 
+    public boolean rangeOfFare (String minNumber,String maxNumber) {
+        try {
+            if (Objects.equals(minNumber, "") || Objects.equals(minNumber, "0")) {
+                return (Double.valueOf(this.fare) <= Double.valueOf(maxNumber));
+            }
+            if (Objects.equals(maxNumber, "") || Objects.equals(maxNumber, "0")) {
+                return (Double.valueOf(this.fare) > Double.valueOf(minNumber));
+            }
+            else {
+                return (Double.valueOf(this.fare)) >= Double.valueOf(minNumber) && (Double.valueOf(this.fare)) <= Double.valueOf(maxNumber);
+            }
+        } catch (NumberFormatException e){
+            minNumber ="0";
+            rangeOfFare(minNumber,maxNumber);
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+
 
     public boolean rangeOfId (String minNumber,String maxNumber) {
-            System.out.println(minNumber + " min");
             try {
             if (Objects.equals(minNumber, "") || Objects.equals(minNumber, "0")) {
                 //  System.out.println("הגעתי");
