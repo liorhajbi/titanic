@@ -132,24 +132,24 @@ public class MainPanel extends JPanel {
 
 
         this.submit.addActionListener( (e) -> {
-
+            List <Passengers> newList = passengersList;
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
-//          passengersList = mainSortByClass(chooseOfUser,passengersList);
-//        //  passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+//          newList = mainSortByClass(chooseOfUser,passengersList);
+//          newList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
 //          String sexOfChoose = (String)(sexSurvived.getSelectedItem());
-          passengersList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),passengersList);
-            //     passengersList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
-//          passengersList = sortByName(passengersList,subStringName.getText());
-//          passengersList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
-//          passengersList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
-          passengersList = sortByTicket(passengersList, Integer.parseInt(ticket.getText()));
-//          passengersList = sortByCabin(passengersList, cabin.getText());
-//          passengersList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
-          System.out.println(passengersList);
+            newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
+            //     newList=mainSortById(minRange.getText(),maxRange.getText(),passengersList);
+//          newList = sortByName(passengersList,subStringName.getText());
+//          newList = mainSortBySibSp(passengersList, Integer.parseInt(sibSp.getText()));
+//          newList = sortByParch(passengersList, Integer.parseInt(parch.getText()));
+            newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
+//          newList = sortByCabin(passengersList, cabin.getText());
+//          newList = mainSortByEmbarked(passengersList,(String) embarkedSurvived.getSelectedItem());
+          System.out.println(newList);
 
-            summary.setText("Total Rows: "+ passengersList.size() +  "("+howManySurvived(passengersList)+ " survived" +", " +howManyNotSurvived(passengersList)  + " did not)");
+            summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
             try {
-                writeToFile(passengersList);
+                writeToFile(newList);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -159,9 +159,9 @@ public class MainPanel extends JPanel {
 
     }
     public static void writeToFile ( List<Passengers> passengers) throws IOException {
-        FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\1cvs.csv");
-        fileWriter.write(String.valueOf(passengers));
-        fileWriter.close();
+      //  FileWriter fileWriter = new FileWriter("C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\1cvs.csv");
+     //   fileWriter.write(String.valueOf(passengers));
+      //  fileWriter.close();
     }
 
     public static int howManySurvived (List<Passengers>passengers){
