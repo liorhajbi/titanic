@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -7,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -151,17 +151,32 @@ public class MainPanel extends JPanel {
         this.submit.addActionListener( (e) -> {
             List <Passengers> newList = passengersList;
             String chooseOfUser = (String) survivedComboBox.getSelectedItem();
-  //        newList = mainSortByClass(chooseOfUser,passengersList);
-    //      newList=mainSortById(minRange.getText(),maxRange.getText(),newList);
-      //      newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
-        //    newList=sortById(newList,minRange.getText(),maxRange.getText());
-    //      newList = sortByName(newList,subStringName.getText());
-   //       newList = mainSortBySibSp(newList, Integer.parseInt(sibSp.getText()));
-     //     newList = sortByParch(newList, Integer.parseInt(parch.getText()));
-       //     newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
-   //       newList = sortByCabin(newList, cabin.getText());
-     //     newList = mainSortByEmbarked(newList,(String) embarkedSurvived.getSelectedItem());
-          newList = sortByFare(newList,minFare.getText(),maxFare.getText());
+            newList = mainSortByClass(chooseOfUser,passengersList);
+            newList= mainSortBySex(String.valueOf(sexSurvived.getSelectedItem()),newList);
+            newList=mainSortById(newList,minRange.getText(),maxRange.getText());
+            newList = sortByName(newList,subStringName.getText());
+            try {
+                newList = sortBySibSp(newList, Integer.parseInt(sibSp.getText()));
+            } catch (Exception exception){
+                newList = withOutSort(newList,-1);
+            }
+            try {
+                newList = sortByParch(newList, Integer.parseInt(parch.getText()));
+            } catch (Exception exception){
+                newList = withOutSort(newList,-1);
+            }
+            try {
+                newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
+            } catch (Exception exception){
+                newList = withOutSort(newList,-1);
+            }
+            try {
+                newList = sortByCabin(newList, cabin.getText());
+            } catch (Exception exception){
+                newList = withOutSort(newList,-1);
+            }
+          newList = mainSortByEmbarked(newList,(String) embarkedSurvived.getSelectedItem());
+          newList = mainSortByFare(newList,minFare.getText(),maxFare.getText());
           System.out.println(newList);
 
             summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
@@ -176,6 +191,20 @@ public class MainPanel extends JPanel {
 
 
     }
+    public static List<Passengers> mainSortById (List<Passengers> passengers,String min, String max){
+        if (Objects.equals(min, "") && Objects.equals(max, "")){
+            return passengers;
+        }
+      return sortById(passengers,min,max);
+    }
+
+    public static List<Passengers> mainSortByFare (List<Passengers> passengers,String min, String max){
+        if (Objects.equals(min, "") && Objects.equals(max, "")){
+            return passengers;
+        }
+        return sortByFare(passengers,min,max);
+    }
+
     public static List<Passengers> sortByFare (List<Passengers> passengers,String minNumber,String maxNumber){
         return passengers.stream().filter(passenger -> passenger.rangeOfFare(minNumber,maxNumber)).collect(Collectors.toList());
     }
@@ -191,7 +220,7 @@ public class MainPanel extends JPanel {
     public static int howManyNotSurvived (List<Passengers>passengers){
         return (int) passengers.stream().filter(Passengers::notSurvived).count();
     }
-    public static List<Passengers> mainSortBySibSp (List <Passengers> passengers,int number){
+    public static List<Passengers> withOutSort(List <Passengers> passengers, int number){
         if (number == -1){
             return passengers;
         }
