@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Objects;
 
 public class Passengers {
@@ -14,6 +15,22 @@ public class Passengers {
     private String fare;
     private String cabin;
     private String embarked;
+
+
+    public boolean family (int number){
+        if (number ==1) {
+            return (this.sibSp+this.parch) >= number;
+        }
+            return (this.sibSp+this.parch) == number;
+    }
+
+    public boolean age(int min, int max) {
+        if (max == -1) {
+            return this.age >= min;
+        }
+        return this.age >= min && this.age <= max;
+
+    }
 
     public boolean embarked (String embarked){
         if (this.embarked != null){

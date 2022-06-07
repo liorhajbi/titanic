@@ -43,6 +43,7 @@ public class MainPanel extends JPanel {
 
 
     private JButton submit;
+    private JButton statistic;
 
 
     public MainPanel (int x, int y, int width, int height) {
@@ -79,31 +80,31 @@ public class MainPanel extends JPanel {
         this.subStringName = new JTextField();
         this.subStringName.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(subStringName);
-        this.subStringOfName = new JLabel("name");
+        this.subStringOfName = new JLabel("name:");
         this.subStringOfName.setBounds(survivedLabel.getX(),survivedLabel.getY()+140,120,40);
         add(subStringOfName);
         this.sibSp = new JTextField();
         this.sibSp.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(sibSp);
-        this.sibSpLabel = new JLabel("sib sp");
+        this.sibSpLabel = new JLabel("sib sp:");
         this.sibSpLabel.setBounds(survivedLabel.getX(),survivedLabel.getY()+200,120,40);
         add(sibSpLabel);
         this.parch = new JTextField();
         this.parch.setBounds(survivedLabel.getX()+300,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(parch);
-        this.parchLabel = new JLabel("parch");
+        this.parchLabel = new JLabel("parch:");
         this.parchLabel.setBounds(survivedLabel.getX()+ 190,survivedLabel.getY()+140,120,40);
         add(parchLabel);
         this.ticket = new JTextField();
         this.ticket.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(ticket);
-        this.ticketLabel = new JLabel("ticket");
+        this.ticketLabel = new JLabel("ticket:");
         this.ticketLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+200,120,40);
         add(ticketLabel);
         this.cabin = new JTextField();
         this.cabin.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
         add(cabin);
-        this.cabinLabel = new JLabel("cabin");
+        this.cabinLabel = new JLabel("cabin:");
         this.cabinLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+260,120,40);
         add(cabinLabel);
         this.minId = new JTextField();
@@ -156,6 +157,9 @@ public class MainPanel extends JPanel {
         this.summary.setBounds(80,450,500,40);
         this.summary.setFont(new Font("TimesRoman", Font.BOLD, 20));
         add(summary);
+        this.statistic = new JButton("create statistic file");
+        this.statistic.setBounds(150,550,200,40);
+        add(statistic);
 
 
 
@@ -199,9 +203,103 @@ public class MainPanel extends JPanel {
             }
 
         });
+        this.statistic.addActionListener( (e -> {
+            float class1Survived = statisticOfClass("1st",passengersList);
+            float class2Survived = statisticOfClass("2nd",passengersList);
+            float class3Survived = statisticOfClass("3rd",passengersList);
+            float byMale = statisticOfSex("male",passengersList);
+            float byFemale = statisticOfSex("female",passengersList);
+            float range1 = statisticByAge(0,10,passengersList);
+            float range2 = statisticByAge(11,20,passengersList);
+            float range3 = statisticByAge(21,30,passengersList);
+            float range4 = statisticByAge(31,40,passengersList);
+            float range5 = statisticByAge(41,50,passengersList);
+            float range6 = statisticByAge(51,-1,passengersList);
+            float haveFamily =statisticsByFamily(0,passengersList);
+            float noHaveFamily =statisticsByFamily(1,passengersList);
+            float fare10 = statisticByFare("0","10",passengersList);
+            float fare30 = statisticByFare("11","30",passengersList);
+            float fare31 = statisticByFare("31","0",passengersList);
+            float embarkedS = statisticByEmbarked("S",passengersList);
+            float embarkedQ = statisticByEmbarked("Q",passengersList);
+            float embarkedC = statisticByEmbarked("C",passengersList);
+
+
+
+
+
+
+
+
+
+
+        }) );
+
+    }
+    public static float statisticByEmbarked (String embarked , List<Passengers>passengers){
+        List<Passengers> typeOfEmbarked = sortByEmbarked(passengers,embarked);
+        int size = typeOfEmbarked.size();
+        int survived = howManySurvived(typeOfEmbarked);
+        float result = (float) percent(survived,size);
+        return result;
+    }
+
+    public static float statisticByFare (String min, String max , List<Passengers>passengers){
+        List<Passengers> fare = sortByFare(passengers,min,max);
+        int size = fare.size();
+        int survived = howManySurvived(fare);
+        float result = (float) percent(survived,size);
+        return result;
 
 
     }
+
+    public static float statisticsByFamily (int number, List<Passengers>passengers){
+        List<Passengers> family = sortByFamily(passengers,number);
+        int size = family.size();
+        int survived = howManySurvived(family);
+      float result = (float) percent(survived,size);
+      return result;
+
+    }
+
+    public static List<Passengers> sortByFamily (List<Passengers> passengers,int number){
+        return passengers.stream().filter(passenger -> passenger.family(number)).collect(Collectors.toList());
+    }
+
+   public static float statisticByAge (int min, int max,List<Passengers>passengers) {
+        List<Passengers> rangeAge =sortByAge(passengers,min,max);
+        int size = rangeAge.size();
+        int survived= howManySurvived(rangeAge);
+        float result= (float) percent(survived,size);
+        return result;
+   }
+
+    public static List<Passengers> sortByAge (List<Passengers> passengers,int minNumber,int maxNumber){
+        return passengers.stream().filter(passenger -> passenger.age(minNumber,maxNumber)).collect(Collectors.toList());
+    }
+
+    public static float statisticOfSex (String sex, List<Passengers>passengers){
+        List<Passengers> bySex = mainSortBySex(sex,passengers);
+        int survived = howManySurvived(bySex);
+        int size = bySex.size();
+        float result = (float) percent(survived,size);
+        return result;
+    }
+
+    public static float statisticOfClass (String nameOfClass,List<Passengers>passengers){
+        List<Passengers>class1 = mainSortByClass(nameOfClass,passengers);
+        int survived=howManySurvived(class1);
+        int size = class1.size();
+        float result = (float) percent(survived,size);
+        return result;
+    }
+
+    public static double percent (int number, double sum) {
+        double result = (number / sum ) * 100;
+        return result;
+    }
+
     public static List<Passengers> mainSortById (List<Passengers> passengers,String min, String max){
         if (Objects.equals(min, "") && Objects.equals(max, "")){
             return passengers;
@@ -241,7 +339,7 @@ public class MainPanel extends JPanel {
 
 
     public  static List<Passengers> mainSortByEmbarked (List<Passengers>passengers, String embarked){
-        if (embarked == "All"){
+        if (Objects.equals(embarked, "All")){
             return passengers;
         }
           List<Passengers> passengersList = sortByEmbarked(passengers,embarked);
