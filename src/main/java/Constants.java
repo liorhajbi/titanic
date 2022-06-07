@@ -2,6 +2,7 @@ import javax.swing.*;
 
 public class Constants {
     public static final String PATH_TO_DATA_FILE = "src/main/resources/titanic.csv";
+    public static final String PATH_T0_STATISTIC_FILE = "C:\\Users\\USER\\Desktop\\לימודים\\סמסטר ב\\שי סדנא לתכנות\\טיטאניק\\" + "Statistics.txt";
     public static final int WINDOW_WIDTH = 600;
     public static final int WINDOW_HEIGHT = 700;
     public static final String[] PASSENGER_CLASS_OPTIONS = { "All", "1st", "2nd", "3rd"};

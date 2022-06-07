@@ -40,10 +40,18 @@ public class MainPanel extends JPanel {
     private JLabel fare;
     private JLabel id;
     private int number = 1;
-
-
     private JButton submit;
     private JButton statistic;
+
+    public static final int FONT_SIZE = 20;
+    public static final int X_OF_RANG_LABEL = 70 ,Y_OF_SURVIVED_LABEL = 10,  Y_OF_LABELS = 40,  WIDTH_OF_LABEL = 30 , HEIGHT_OF_LABEL = 20,
+    NAME_X = 30, Y = 140,WIDTH = 120 ,HEIGHT = 40, SIB_SP_X = 30, Y_LOCATION = 200, X_LOCATION = 300,X = 190, LABELS_Y = 260,ID_Y = 80,
+    X_LABELS = 60, FARE_Y = 370, MIN_MAX_FARE_Y = 330, ID_LABEL_Y = 90, X_MIN_FARE = 10, EMBARKED_Y = 300, BUTTON_SIZE1= 450
+    ,BUTTON_SIZE2 = 100, SUMMARY_X = 80,SUMMARY_Y = 450, SUMMARY_WIDTH = 500, STATISTIC_X = 70, STATISTIC_Y = 500, STATISTIC_WIDTH = 200,
+    NO_SORT = -1,MIN_AGE1 = 0,MIN_AGE2 = 11,MIN_AGE3 = 21,MIN_AGE4 = 31,MIN_AGE5 = 41, MIN_AGE6 = 51,MAX_AGE1 = 10,MAX_AGE2 = 20,
+    MAX_AGE3 = 30, MAX_AGE4 = 40, MAX_AGE5 = 50, MAX_AGE6 = -1, TYPE_OF_CLASS1 = 1, TYPE_OF_CLASS2 = 2,TYPE_OF_CLASS3 = 3,
+    BACKGROUND_X_Y = 0, BACKGROUND_WIDTH = 700, BACKGROUND_HEIGHT = 600;
+
 
 
     public MainPanel (int x, int y, int width, int height) {
@@ -61,7 +69,7 @@ public class MainPanel extends JPanel {
                 }
                 i++;
             }
-            //      this.titanic = new ImageIcon("titanic.jpg");
+                 this.titanic = new ImageIcon("titanic.jpg");
 
 
         } catch (FileNotFoundException e){
@@ -70,97 +78,123 @@ public class MainPanel extends JPanel {
         }
         this.setLayout(null);
         this.setBounds(x, y + Constants.MARGIN_FROM_TOP, width, height);
-        JLabel survivedLabel = new JLabel("Passenger Class: ");
-        survivedLabel.setBounds(x + Constants.MARGIN_FROM_LEFT, y, Constants.LABEL_WIDTH, Constants.LABEL_HEIGHT);
+        JLabel survivedLabel = new JLabel(" class: ");
+        survivedLabel.setBounds(x + Constants.MARGIN_FROM_LEFT, y+Y_OF_SURVIVED_LABEL, Constants.LABEL_WIDTH, Constants.LABEL_HEIGHT);
+        survivedLabel.setForeground(Color.white);
         this.add(survivedLabel);
         JLabel minRangeLabel = new JLabel("max: ");
-        minRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        minRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+70 , survivedLabel.getY()+40, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        minRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        minRangeLabel.setForeground(Color.white);
+        minRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+X_OF_RANG_LABEL, survivedLabel.getY()+Y_OF_LABELS, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         this.add(minRangeLabel);
         this.subStringName = new JTextField();
-        this.subStringName.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.subStringName.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+NAME_X,survivedLabel.getY()+Y,Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(subStringName);
         this.subStringOfName = new JLabel("name:");
-        this.subStringOfName.setBounds(survivedLabel.getX(),survivedLabel.getY()+140,120,40);
+        this.subStringOfName.setBounds(survivedLabel.getX(),subStringName.getY(),WIDTH,HEIGHT);
+        subStringOfName.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        subStringOfName.setForeground(Color.white);
         add(subStringOfName);
         this.sibSp = new JTextField();
-        this.sibSp.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+30,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.sibSp.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+SIB_SP_X,survivedLabel.getY()+Y_LOCATION,Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(sibSp);
         this.sibSpLabel = new JLabel("sib sp:");
-        this.sibSpLabel.setBounds(survivedLabel.getX(),survivedLabel.getY()+200,120,40);
+        this.sibSpLabel.setBounds(survivedLabel.getX(),survivedLabel.getY()+Y_LOCATION,WIDTH,HEIGHT);
+        sibSpLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        sibSpLabel.setForeground(Color.white);
         add(sibSpLabel);
         this.parch = new JTextField();
-        this.parch.setBounds(survivedLabel.getX()+300,survivedLabel.getY()+140,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.parch.setBounds(survivedLabel.getX()+X_LOCATION,survivedLabel.getY()+ Y_LOCATION,Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(parch);
         this.parchLabel = new JLabel("parch:");
-        this.parchLabel.setBounds(survivedLabel.getX()+ 190,survivedLabel.getY()+140,120,40);
+        this.parchLabel.setBounds(survivedLabel.getX()+ X,survivedLabel.getY()+Y,WIDTH,HEIGHT);
+        parchLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        parchLabel.setForeground(Color.white);
         add(parchLabel);
         this.ticket = new JTextField();
-        this.ticket.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+200,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.ticket.setBounds(survivedLabel.getX() + X_LOCATION,survivedLabel.getY()+Y_LOCATION,Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(ticket);
         this.ticketLabel = new JLabel("ticket:");
-        this.ticketLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+200,120,40);
+        this.ticketLabel.setBounds(survivedLabel.getX() + X,survivedLabel.getY()+Y_LOCATION,WIDTH,HEIGHT);
+        ticketLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        ticketLabel.setForeground(Color.white);
         add(ticketLabel);
         this.cabin = new JTextField();
-        this.cabin.setBounds(survivedLabel.getX() + 300,survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.cabin.setBounds(survivedLabel.getX() + X_LOCATION,survivedLabel.getY()+ LABELS_Y,Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(cabin);
         this.cabinLabel = new JLabel("cabin:");
-        this.cabinLabel.setBounds(survivedLabel.getX() + 190,survivedLabel.getY()+260,120,40);
+        this.cabinLabel.setBounds(survivedLabel.getX() + X,survivedLabel.getY()+LABELS_Y,WIDTH,HEIGHT);
+        cabinLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        cabinLabel.setForeground(Color.white);
         add(cabinLabel);
         this.minId = new JTextField();
-        this.minId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.minId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+ID_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(minId);
         JLabel maxIdRangeLabel = new JLabel("min: ");
-        maxIdRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        maxIdRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+40, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        maxIdRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        maxIdRangeLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+Y_OF_LABELS, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
+        maxIdRangeLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        maxIdRangeLabel.setForeground(Color.white);
         this.add(maxIdRangeLabel);
         this.maxId = new JTextField();
-        this.maxId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+80, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.maxId.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + X_LABELS, survivedLabel.getY()+ID_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(maxId);
         this.id = new JLabel("id:");
-        this.id.setBounds(survivedLabel.getX()+10,survivedLabel.getY()+90,120,40);
+        this.id.setBounds(survivedLabel.getX(),survivedLabel.getY()+ID_LABEL_Y,WIDTH,HEIGHT);
+        id.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        id.setForeground(Color.white);
         add(id);
         this.minFareLabel = new JLabel("min:");
-        this.minFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+10 , survivedLabel.getY()+330, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
-     add(minFareLabel);
+        this.minFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth()+X_MIN_FARE , survivedLabel.getY()+MIN_MAX_FARE_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
+        minFareLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        minFareLabel.setForeground(Color.white);
+        add(minFareLabel);
         this.maxFareLabel = new JLabel("max:");
-        this.maxFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+330, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.maxFareLabel.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + X_LABELS, survivedLabel.getY()+MIN_MAX_FARE_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
+        maxFareLabel.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        maxFareLabel.setForeground(Color.white);
         add(maxFareLabel);
         this.maxFare = new JTextField();
-        this.maxFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 59, survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.maxFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + X_LABELS, survivedLabel.getY()+FARE_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(maxFare);
         this.minFare = new JTextField();
-        this.minFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.minFare.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY()+FARE_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
         add(minFare);
         this.fare = new JLabel( "fare:");
-        this.fare.setBounds(70  , survivedLabel.getY()+370, Constants.COMBO_BOX_WIDTH-30, 20+Constants.COMBO_BOX_HEIGHT);
+        this.fare.setBounds(survivedLabel.getX()  , survivedLabel.getY()+FARE_Y, Constants.COMBO_BOX_WIDTH-WIDTH_OF_LABEL, HEIGHT_OF_LABEL+Constants.COMBO_BOX_HEIGHT);
+        fare.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        fare.setForeground(Color.white);
         add(fare);
         this.submit = new JButton("submit");
-        this.submit.setBounds(150,500,100,40);
+        this.submit.setBounds(survivedLabel.getX() + survivedLabel.getWidth(),BUTTON_SIZE1,BUTTON_SIZE2,HEIGHT);
+        submit.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
         add(submit);
         this.embarkedSurvived = new JComboBox<>(Constants.PASSENGER_EMBARKED_OPTIONS);
-        this.embarkedSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+300,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        this.embarkedSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+EMBARKED_Y,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
         this.add(embarkedSurvived);
         this.embarked = new JLabel("embarked");
-        this.embarked.setBounds(survivedLabel.getX()+survivedLabel.getWidth()-80,survivedLabel.getY()+300,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        this.embarked.setBounds(survivedLabel.getX(),survivedLabel.getY()+EMBARKED_Y,Constants.COMBO_BOX_WIDTH+HEIGHT_OF_LABEL,Constants.COMBO_BOX_HEIGHT);
+        embarked.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        embarked.setForeground(Color.white);
         add(embarked);
         this.survivedComboBox = new JComboBox<>(Constants.PASSENGER_CLASS_OPTIONS);
-        this.survivedComboBox.setBounds(survivedLabel.getX() + survivedLabel.getWidth() + 1, survivedLabel.getY(), Constants.COMBO_BOX_WIDTH, Constants.COMBO_BOX_HEIGHT);
+        this.survivedComboBox.setBounds(survivedLabel.getX() + survivedLabel.getWidth() , survivedLabel.getY(), Constants.COMBO_BOX_WIDTH, Constants.COMBO_BOX_HEIGHT);
         this.add(this.survivedComboBox);
         this.sex = new JLabel("sex");
-        this.sex.setBounds(survivedLabel.getX()+survivedLabel.getWidth()-30,survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        this.sex.setBounds(survivedLabel.getX(),survivedLabel.getY()+LABELS_Y,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        sex.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
+        sex.setForeground(Color.white);
         add(sex);
         this.sexSurvived = new JComboBox<>(Constants.PASSENGER_SEX_OPTIONS);
-        this.sexSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+260,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
+        this.sexSurvived.setBounds(survivedLabel.getX()+survivedLabel.getWidth(),survivedLabel.getY()+LABELS_Y,Constants.COMBO_BOX_WIDTH,Constants.COMBO_BOX_HEIGHT);
         add(sexSurvived);
         this.summary = new JLabel(" ");
-        this.summary.setBounds(80,450,500,40);
-        this.summary.setFont(new Font("TimesRoman", Font.BOLD, 20));
+        this.summary.setBounds(SUMMARY_X,SUMMARY_Y,SUMMARY_WIDTH,HEIGHT);
+        this.summary.setFont(new Font("TimesRoman", Font.BOLD, FONT_SIZE));
         add(summary);
         this.statistic = new JButton("create statistic file");
-        this.statistic.setBounds(150,550,200,40);
+        this.statistic.setBounds(STATISTIC_X,STATISTIC_Y,STATISTIC_WIDTH,HEIGHT);
         add(statistic);
-
 
 
         this.submit.addActionListener( (e) -> {
@@ -173,28 +207,29 @@ public class MainPanel extends JPanel {
             try {
                 newList = sortBySibSp(newList, Integer.parseInt(sibSp.getText()));
             } catch (Exception exception){
-                newList = withOutSort(newList,-1);
+                newList = withOutSort(newList,NO_SORT);
             }
             try {
                 newList = sortByParch(newList, Integer.parseInt(parch.getText()));
             } catch (Exception exception){
-                newList = withOutSort(newList,-1);
+                newList = withOutSort(newList,NO_SORT);
             }
             try {
                 newList = sortByTicket(newList, Integer.parseInt(ticket.getText()));
             } catch (Exception exception){
-                newList = withOutSort(newList,-1);
+                newList = withOutSort(newList,NO_SORT);
             }
             try {
                 newList = sortByCabin(newList, cabin.getText());
             } catch (Exception exception){
-                newList = withOutSort(newList,-1);
+                newList = withOutSort(newList,NO_SORT);
             }
           newList = mainSortByEmbarked(newList,(String) embarkedSurvived.getSelectedItem());
           newList = mainSortByFare(newList,minFare.getText(),maxFare.getText());
           System.out.println(newList);
 
-            summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
+          summary.setText("Total Rows: "+ newList.size() +  "("+howManySurvived(newList)+ " survived" +", " +howManyNotSurvived(newList)  + " did not)");
+          summary.setForeground(Color.white);
             try {
                 writeToFile(newList,number);
                 number++;
@@ -204,38 +239,43 @@ public class MainPanel extends JPanel {
 
         });
         this.statistic.addActionListener( (e -> {
-            float class1Survived = statisticOfClass("1st",passengersList);
-            float class2Survived = statisticOfClass("2nd",passengersList);
-            float class3Survived = statisticOfClass("3rd",passengersList);
-            float byMale = statisticOfSex("male",passengersList);
-            float byFemale = statisticOfSex("female",passengersList);
-            float range1 = statisticByAge(0,10,passengersList);
-            float range2 = statisticByAge(11,20,passengersList);
-            float range3 = statisticByAge(21,30,passengersList);
-            float range4 = statisticByAge(31,40,passengersList);
-            float range5 = statisticByAge(41,50,passengersList);
-            float range6 = statisticByAge(51,-1,passengersList);
-            float haveFamily =statisticsByFamily(0,passengersList);
-            float noHaveFamily =statisticsByFamily(1,passengersList);
-            float fare10 = statisticByFare("0","10",passengersList);
-            float fare30 = statisticByFare("11","30",passengersList);
-            float fare31 = statisticByFare("31","0",passengersList);
-            float embarkedS = statisticByEmbarked("S",passengersList);
-            float embarkedQ = statisticByEmbarked("Q",passengersList);
-            float embarkedC = statisticByEmbarked("C",passengersList);
-
-
-
-
-
-
-
-
+           String summaryOfStatistics =("statistics by class:" +
+                    "\n" + " first class:" + statisticOfClass("1st", passengersList)) + "%" +
+                    "\n"+ "second class:" + statisticOfClass("2nd",passengersList) + "%" + "\n" +
+            "third class:" +statisticOfClass("3rd",passengersList)+ "%"+"\n"+"\n"+
+                "statistics by sex:"+"\n"+"by male:"+ statisticOfSex("male",passengersList)+"%"+"\n"+
+                   "by female:"+ statisticOfSex("female",passengersList)+"\n"+"\n"+
+                   "statistics by age:"+"\n"+"0-10:"+ statisticByAge(MIN_AGE1,MAX_AGE1,passengersList)+"%"+"\n"+
+                   "11-20:"+ statisticByAge(MIN_AGE2,MAX_AGE2,passengersList)+"%"+"\n"+
+                   "21-30:"+ statisticByAge(MIN_AGE3,MAX_AGE3,passengersList)+"%"+"\n"+
+                   "31-40:"+ statisticByAge(MIN_AGE4,MAX_AGE4,passengersList)+"%"+"\n"+
+                   "41-50:"+ statisticByAge(MIN_AGE5,MAX_AGE5,passengersList)+"%"+"\n"+
+                   "51+:"+ statisticByAge(MIN_AGE6,MAX_AGE6,passengersList)+"%"+"\n"+"\n"+
+                   "statistics by family:"+"\n"+"have family:"+ statisticsByFamily(0,passengersList)+"\n"+
+                   "doesnt have family:"+ statisticsByFamily(1,passengersList)+"\n"+"\n"+
+                   "statistics by fare:"+"\n"+"0-10:"+ statisticByFare("0","10",passengersList)+"\n"+
+                   "11-30:" + statisticByFare("11","30",passengersList)+"\n"+
+                   "31+:"+ statisticByFare("31","0",passengersList)+"\n"+"\n"+
+                   "statistics by embarked:"+"\n"+"embarked S:"+ statisticByEmbarked("S",passengersList)+"\n"+
+                   "embarked Q:"+ statisticByEmbarked("Q",passengersList)+"\n"+
+                   "embarked C:"+ statisticByEmbarked("C",passengersList);
+            System.out.println(summaryOfStatistics);
+            try {
+                writeToStatisticFile(summaryOfStatistics);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
 
         }) );
 
     }
+    public static void writeToStatisticFile ( String text) throws IOException {
+        FileWriter fileWriter = new FileWriter(Constants.PATH_T0_STATISTIC_FILE);
+        fileWriter.write(text);
+        fileWriter.close();
+    }
+
     public static float statisticByEmbarked (String embarked , List<Passengers>passengers){
         List<Passengers> typeOfEmbarked = sortByEmbarked(passengers,embarked);
         int size = typeOfEmbarked.size();
@@ -381,19 +421,14 @@ public class MainPanel extends JPanel {
 
     public static List<Passengers> mainSortByClass (String chooseOfUser,List<Passengers> passengersList){
         List<Passengers> passengers = passengersList;
-        if (chooseOfUser.equals("All")) {
-            for (int i = 0; i < passengersList.size(); i++) {
-               // System.out.println(passengersList.get(i).toString());
-            }
-        }
         if (chooseOfUser.equals("1st")){
-           passengers = sortByClass(passengersList,1);
+           passengers = sortByClass(passengersList,TYPE_OF_CLASS1);
         }
         if (chooseOfUser.equals("2nd")){
-            passengers= sortByClass(passengersList,2);
+            passengers= sortByClass(passengersList,TYPE_OF_CLASS2);
         }
         if (chooseOfUser.equals("3rd")){
-            passengers =sortByClass(passengersList,3);
+            passengers =sortByClass(passengersList,TYPE_OF_CLASS3);
         }
         return passengers;
     }
@@ -419,7 +454,7 @@ public class MainPanel extends JPanel {
     protected void paintComponent (Graphics g){
         super.paintComponent(g);
         if (this.titanic != null) {
-            g.drawImage(this.titanic.getImage(), 0, 0, 700, 600, null);
+            g.drawImage(this.titanic.getImage(), BACKGROUND_X_Y, BACKGROUND_X_Y, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, null);
         }
     }
 
